@@ -60,95 +60,87 @@ export default function HomeEpicerie() {
   return (
     <div className="bg-[#0A0A0A] text-[#F5F0E8]">
       {/* Hero avec onglets */}
-      <section className="relative min-h-screen flex flex-col">
+      <section className="relative flex flex-col" style={{ minHeight: "100svh" }}>
         {/* Background image — change selon onglet */}
         <div className="absolute inset-0 overflow-hidden">
           {tabs.map((t) => (
             <div
               key={t.id}
-              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${t.id === activeTab ? "opacity-30" : "opacity-0"}`}
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${t.id === activeTab ? "opacity-25" : "opacity-0"}`}
               style={{ backgroundImage: `url('${t.image}')` }}
             />
           ))}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/50 via-[#0A0A0A]/40 to-[#0A0A0A]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/60 via-[#0A0A0A]/50 to-[#0A0A0A]" />
         </div>
 
-        {/* Contenu hero */}
-        <div className="relative z-10 flex-1 flex items-center">
-          <div className="max-w-6xl mx-auto px-4 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-20 pt-28">
+        {/* Contenu hero — prend tout l'espace entre header et onglets */}
+        <div className="relative z-10 flex-1 flex items-center px-4">
+          <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-8 pt-6">
             <div>
-              <p className="text-[#C9A96E] text-xs font-semibold uppercase tracking-[0.4em] mb-3">
+              <p className="text-[#C9A96E] text-xs font-semibold uppercase tracking-[0.3em] mb-1">
                 Epicerie fine · Artisanal
               </p>
-              <p className="text-[#C9A96E]/70 text-xs uppercase tracking-widest mb-2 transition-all duration-500">
+              <p className="text-[#C9A96E]/60 text-xs uppercase tracking-widest mb-3">
                 {tab.tagline}
               </p>
-              <h1 className="font-serif text-5xl md:text-7xl font-bold leading-none mb-4">
+              <h1 className="font-serif font-bold leading-tight mb-3" style={{ fontSize: "clamp(2rem, 8vw, 4.5rem)" }}>
                 <span className="text-[#C9A96E]">Terodz</span><br />
-                <span className="text-[#F5F0E8] transition-all duration-500">{tab.emoji} {tab.label}</span>
+                <span className="text-[#F5F0E8]">{tab.label}</span>
               </h1>
-              <p className="text-[#F5F0E8]/60 text-base md:text-lg leading-relaxed mb-10 max-w-md transition-all duration-500">
+              <p className="text-[#F5F0E8]/55 text-sm md:text-base leading-relaxed mb-6 max-w-md">
                 {tab.desc}
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex gap-3 flex-wrap">
                 <Link
                   href="/commander"
-                  className="bg-[#C9A96E] text-[#0A0A0A] px-8 py-4 font-semibold text-sm uppercase tracking-widest hover:bg-[#B8955A] transition-colors"
+                  className="bg-[#C9A96E] text-[#0A0A0A] px-5 py-3 font-semibold text-xs uppercase tracking-widest hover:bg-[#B8955A] transition-colors"
                 >
                   Commander
                 </Link>
                 <Link
                   href={`/produits?categorie=${encodeURIComponent(tab.slug)}`}
-                  className="border border-[#C9A96E]/40 text-[#C9A96E] px-8 py-4 font-semibold text-sm uppercase tracking-widest hover:border-[#C9A96E] transition-colors"
+                  className="border border-[#C9A96E]/40 text-[#C9A96E] px-5 py-3 font-semibold text-xs uppercase tracking-widest hover:border-[#C9A96E] transition-colors"
                 >
                   Voir la selection
                 </Link>
               </div>
             </div>
 
-            {/* Image desktop — produits mis en avant */}
+            {/* Image desktop */}
             <div className="hidden lg:block">
               <div className="relative">
                 <div
                   key={activeTab}
-                  className="h-[500px] bg-cover bg-center animate-fade-in"
-                  style={{
-                    backgroundImage: `url('${tab.produits[0].image}')`,
-                    transition: "background-image 0.5s ease",
-                  }}
+                  className="h-[460px] bg-cover bg-center"
+                  style={{ backgroundImage: `url('${tab.produits[0].image}')` }}
                 />
-                <div className="absolute -bottom-6 -right-6 border border-[#C9A96E]/30 h-full w-full pointer-events-none" />
-                <div className="absolute bottom-6 left-6 bg-[#0A0A0A]/80 border border-[#C9A96E]/20 p-4 backdrop-blur-sm">
+                <div className="absolute -bottom-5 -right-5 border border-[#C9A96E]/30 h-full w-full pointer-events-none" />
+                <div className="absolute bottom-5 left-5 bg-[#0A0A0A]/80 border border-[#C9A96E]/20 p-4 backdrop-blur-sm">
                   <p className="text-[#C9A96E] text-xs uppercase tracking-widest mb-1">{tab.produits[0].cat}</p>
-                  <p className="font-serif text-[#F5F0E8] font-semibold">{tab.produits[0].name}</p>
-                  <p className="text-[#F5F0E8]/40 text-sm mt-1">{tab.produits[0].price}</p>
+                  <p className="font-serif text-[#F5F0E8] font-semibold text-sm">{tab.produits[0].name}</p>
+                  <p className="text-[#F5F0E8]/40 text-xs mt-1">{tab.produits[0].price}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Onglets — visibles en bas du hero, bien visibles sur mobile */}
-        <div className="relative z-10 pb-8 px-4">
+        {/* Onglets collés en bas du hero */}
+        <div className="relative z-10 px-4 pb-4">
           <div className="max-w-2xl mx-auto">
-            {/* Label */}
-            <p className="text-[#C9A96E]/50 text-xs uppercase tracking-widest text-center mb-4 md:hidden">
-              Choisir une categorie
-            </p>
-            <div className="flex gap-2 bg-[#111]/80 backdrop-blur-sm border border-[#222] p-1 rounded-none">
+            <div className="flex bg-[#111]/90 backdrop-blur-sm border border-[#2a2a2a]">
               {tabs.map((t) => (
                 <button
                   key={t.id}
                   onClick={() => setActiveTab(t.id as typeof activeTab)}
-                  className={`flex-1 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 py-3 px-2 text-xs md:text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${
+                  className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 px-1 text-[10px] md:text-xs font-semibold uppercase tracking-wide transition-all duration-300 ${
                     activeTab === t.id
                       ? "bg-[#C9A96E] text-[#0A0A0A]"
-                      : "text-[#F5F0E8]/50 hover:text-[#F5F0E8] hover:bg-[#1a1a1a]"
+                      : "text-[#F5F0E8]/40 hover:text-[#F5F0E8] hover:bg-[#1a1a1a]"
                   }`}
                 >
-                  <span className="text-base md:text-lg">{t.emoji}</span>
-                  <span className="text-center leading-tight">{t.label}</span>
+                  <span className="text-lg leading-none">{t.emoji}</span>
+                  <span className="text-center leading-tight mt-0.5">{t.label}</span>
                 </button>
               ))}
             </div>
