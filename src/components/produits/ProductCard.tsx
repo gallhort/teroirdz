@@ -49,7 +49,7 @@ export default function ProductCard({ product, batchOpen, onAdd }: ProductCardPr
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
         {isSoldOut && (
-          <div className="absolute inset-0 bg-brown/70 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
             <span className="bg-red-700 text-white text-xs font-bold px-3 py-1.5 rounded-full">
               Épuisé pour cette fournée
             </span>
@@ -58,25 +58,25 @@ export default function ProductCard({ product, batchOpen, onAdd }: ProductCardPr
       </div>
       <div className="flex flex-col flex-1 p-4">
         <div className="flex-1">
-          <p className="text-xs text-brown-light uppercase tracking-wider mb-1">{product.category}</p>
-          <h3 className="font-serif font-semibold text-brown text-base leading-snug">
+          <p className="text-xs uppercase tracking-wider mb-1" style={{ color: "#C9A96E" }}>{product.category}</p>
+          <h3 className="font-serif font-semibold text-base leading-snug" style={{ color: "#F5F0E8" }}>
             {product.name}
             {product.flavor && (
-              <span className="font-sans font-normal text-sm text-terracotta ml-1">— {product.flavor}</span>
+              <span className="font-sans font-normal text-sm ml-1" style={{ color: "rgba(245,240,232,0.5)" }}>— {product.flavor}</span>
             )}
           </h3>
           {product.description && (
-            <p className="text-xs text-brown-light mt-1 leading-relaxed line-clamp-2">{product.description}</p>
+            <p className="text-xs mt-1 leading-relaxed line-clamp-2" style={{ color: "rgba(245,240,232,0.4)" }}>{product.description}</p>
           )}
         </div>
         <div className="flex items-center justify-between mt-4">
           <div>
-            <span className="text-lg font-bold text-brown">{formatPrice(product.pricePerUnit)}</span>
-            <span className="text-xs text-brown-light ml-1">/ {product.unit}</span>
+            <span className="text-lg font-bold" style={{ color: "#F5F0E8" }}>{formatPrice(product.pricePerUnit)}</span>
+            <span className="text-xs ml-1" style={{ color: "rgba(245,240,232,0.4)" }}>/ {product.unit}</span>
           </div>
           {batchOpen !== undefined && (
             isSoldOut ? (
-              <span className="text-xs text-red-600 font-medium">Épuisé</span>
+              <span className="text-xs text-red-500 font-medium">Épuisé</span>
             ) : batchOpen ? (
               <button
                 onClick={() => onAdd?.(product)}
@@ -85,7 +85,7 @@ export default function ProductCard({ product, batchOpen, onAdd }: ProductCardPr
                 + Ajouter
               </button>
             ) : (
-              <span className="text-xs text-brown-light italic">Prochaine fournée</span>
+              <span className="text-xs italic" style={{ color: "rgba(245,240,232,0.4)" }}>Prochaine fournée</span>
             )
           )}
         </div>

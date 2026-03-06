@@ -25,7 +25,7 @@ async function ProductGrid({ categorie }: { categorie?: string }) {
   if (products.length === 0) {
     return (
       <div className="col-span-full text-center py-16">
-        <p className="text-brown-light">Aucun produit dans cette catégorie.</p>
+        <p style={{ color: "rgba(245,240,232,0.4)" }}>Aucun produit dans cette catégorie.</p>
       </div>
     );
   }

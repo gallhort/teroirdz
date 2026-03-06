@@ -20,11 +20,11 @@ export default function CategoryFilter() {
     <div className="flex flex-wrap gap-2 mb-8">
       <button
         onClick={() => setCategory("all")}
-        className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-          active === "all"
-            ? "bg-brown text-cream"
-            : "bg-cream-dark text-brown hover:bg-sand"
-        }`}
+        className="px-4 py-2 rounded-full text-sm font-medium transition-colors"
+        style={active === "all"
+          ? { background: "#C9A96E", color: "#0A0A0A" }
+          : { background: "#1a1a1a", color: "rgba(245,240,232,0.6)", border: "1px solid #2a2a2a" }
+        }
       >
         Tous
       </button>
@@ -32,11 +32,11 @@ export default function CategoryFilter() {
         <button
           key={cat}
           onClick={() => setCategory(cat)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            active === cat
-              ? "bg-brown text-cream"
-              : "bg-cream-dark text-brown hover:bg-sand"
-          }`}
+          className="px-4 py-2 rounded-full text-sm font-medium transition-colors"
+          style={active === cat
+            ? { background: "#C9A96E", color: "#0A0A0A" }
+            : { background: "#1a1a1a", color: "rgba(245,240,232,0.6)", border: "1px solid #2a2a2a" }
+          }
         >
           {cat}
         </button>

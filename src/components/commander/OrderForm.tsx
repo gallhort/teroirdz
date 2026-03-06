@@ -75,10 +75,10 @@ export default function OrderForm({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-cream overflow-y-auto">
-      <div className="flex items-center justify-between px-4 py-4 bg-brown text-cream sticky top-0">
-        <h2 className="font-serif text-lg font-bold">Mon panier</h2>
-        <button onClick={onClose} className="text-sand hover:text-cream p-2">
+    <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto" style={{ background: "#0A0A0A" }}>
+      <div className="flex items-center justify-between px-4 py-4 sticky top-0" style={{ background: "#0d0d0d", borderBottom: "1px solid #1a1a1a" }}>
+        <h2 className="font-serif text-lg font-bold" style={{ color: "#F5F0E8" }}>Mon panier</h2>
+        <button onClick={onClose} className="p-2" style={{ color: "rgba(245,240,232,0.5)" }}>
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -87,30 +87,30 @@ export default function OrderForm({
 
       <div className="flex-1 px-4 py-6 max-w-lg mx-auto w-full">
         {/* Cart items summary */}
-        <div className="bg-white rounded-xl p-4 mb-6">
-          <h3 className="font-semibold text-brown mb-3 text-sm uppercase tracking-wider">
+        <div className="rounded-xl p-4 mb-6" style={{ background: "#111", border: "1px solid #1e1e1e" }}>
+          <h3 className="font-semibold mb-3 text-sm uppercase tracking-wider" style={{ color: "#C9A96E" }}>
             Récapitulatif ({totalItems()} article{totalItems() > 1 ? "s" : ""})
           </h3>
           <div className="space-y-2">
             {items.map((item) => (
               <div key={item.productId} className="flex justify-between text-sm">
-                <span className="text-brown">
+                <span style={{ color: "rgba(245,240,232,0.7)" }}>
                   {item.name}{item.flavor ? ` (${item.flavor})` : ""} × {item.qty}
                 </span>
-                <span className="font-medium text-brown">{formatPrice(item.qty * item.unitPrice)}</span>
+                <span className="font-medium" style={{ color: "#F5F0E8" }}>{formatPrice(item.qty * item.unitPrice)}</span>
               </div>
             ))}
           </div>
-          <div className="border-t border-cream-dark mt-3 pt-3 flex justify-between font-bold">
-            <span className="text-brown">Total</span>
-            <span className="text-terracotta text-lg">{formatPrice(totalPrice())}</span>
+          <div className="mt-3 pt-3 flex justify-between font-bold" style={{ borderTop: "1px solid #2a2a2a" }}>
+            <span style={{ color: "#F5F0E8" }}>Total</span>
+            <span className="text-lg" style={{ color: "#C9A96E" }}>{formatPrice(totalPrice())}</span>
           </div>
-          <p className="text-xs text-brown-light mt-2">💰 Paiement à la livraison (espèces)</p>
+          <p className="text-xs mt-2" style={{ color: "rgba(245,240,232,0.4)" }}>💰 Paiement à la livraison (espèces)</p>
         </div>
 
         {/* Customer form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <h3 className="font-serif font-bold text-brown text-lg">Vos coordonnées</h3>
+          <h3 className="font-serif font-bold text-lg" style={{ color: "#F5F0E8" }}>Vos coordonnées</h3>
 
           <Input
             label="Nom complet *"
@@ -146,7 +146,7 @@ export default function OrderForm({
           <Button type="submit" loading={loading} size="lg" className="w-full mt-6">
             Confirmer la commande
           </Button>
-          <p className="text-xs text-center text-brown-light">
+          <p className="text-xs text-center" style={{ color: "rgba(245,240,232,0.4)" }}>
             En confirmant, vous acceptez d&apos;être contacté pour la livraison.
           </p>
         </form>

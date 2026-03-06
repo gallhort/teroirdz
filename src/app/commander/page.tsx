@@ -111,7 +111,7 @@ export default function CommanderPage() {
 
           return (
             <div key={category} className="mb-10">
-              <h2 className="font-serif font-bold text-brown text-xl mb-4 border-b border-cream-dark pb-2">
+              <h2 className="font-serif font-bold text-xl mb-4 pb-2" style={{ color: "#F5F0E8", borderBottom: "1px solid #1e1e1e" }}>
                 {category}
               </h2>
               <div className="space-y-3">
@@ -123,7 +123,8 @@ export default function CommanderPage() {
                   return (
                     <div
                       key={product.id}
-                      className={`flex items-center gap-4 bg-white rounded-xl p-4 border ${isSoldOut ? "border-red-200 opacity-60" : "border-cream-dark"}`}
+                      className={`flex items-center gap-4 rounded-xl p-4 border ${isSoldOut ? "opacity-60" : ""}`}
+                      style={{ background: "#111", borderColor: isSoldOut ? "#3a1a1a" : "#1e1e1e" }}
                     >
                       <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
                         <Image
@@ -135,13 +136,13 @@ export default function CommanderPage() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-brown text-sm leading-snug">
+                        <p className="font-semibold text-sm leading-snug" style={{ color: "#F5F0E8" }}>
                           {product.name}
                           {product.flavor && (
-                            <span className="text-terracotta font-normal"> — {product.flavor}</span>
+                            <span className="font-normal" style={{ color: "#C9A96E" }}> — {product.flavor}</span>
                           )}
                         </p>
-                        <p className="text-sm text-brown-light mt-0.5">
+                        <p className="text-sm mt-0.5" style={{ color: "rgba(245,240,232,0.5)" }}>
                           {formatPrice(product.pricePerUnit)} / {product.unit}
                         </p>
                         {available !== undefined && !isSoldOut && (
