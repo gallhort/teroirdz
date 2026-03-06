@@ -4,15 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
 
+  const { id } = await params;
   const batch = await prisma.batch.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       products: { include: { product: true } },
       orders: {
@@ -63,17 +64,18 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
 
+  const { id } = await params;
   const body = await req.json();
 
   const batch = await prisma.batch.update({
-    where: { id: params.id },
+    where: { id },
     data: {
       name: body.name,
       orderOpenAt: body.orderOpenAt ? new Date(body.orderOpenAt) : undefined,
@@ -88,13 +90,14 @@ export async function PATCH(
 
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
 
-  await prisma.batch.delete({ where: { id: params.id } });
+  const { id } = await params;
+  await prisma.batch.delete({ where: { id } });
   return NextResponse.json({ ok: true });
 }

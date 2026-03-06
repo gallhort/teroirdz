@@ -6,12 +6,12 @@ import ProductForm from "@/components/admin/ProductForm";
 export default async function EditProduitPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const session = await auth();
   if (!session) redirect("/admin/login");
 
-  const product = await prisma.product.findUnique({ where: { id: params.id } });
+  const product = await prisma.product.findUnique({ where: { id: (await params).id } });
   if (!product) notFound();
 
   return (

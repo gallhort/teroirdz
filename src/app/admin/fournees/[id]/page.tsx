@@ -10,13 +10,13 @@ import BatchActions from "@/components/admin/BatchActions";
 export default async function FourneeDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const session = await auth();
   if (!session) redirect("/admin/login");
 
   const batch = await prisma.batch.findUnique({
-    where: { id: params.id },
+    where: { id: (await params).id },
     include: {
       products: { include: { product: true } },
       orders: {

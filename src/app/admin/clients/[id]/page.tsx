@@ -9,12 +9,13 @@ import { OrderStatusBadge } from "@/components/ui/Badge";
 export default async function ClientDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const session = await auth();
   if (!session) redirect("/admin/login");
 
-  const email = decodeURIComponent(params.id);
+  const { id } = await params;
+  const email = decodeURIComponent(id);
 
   const orders = await prisma.order.findMany({
     where: { customerEmail: { equals: email, mode: "insensitive" } },

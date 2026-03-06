@@ -10,13 +10,13 @@ import Link from "next/link";
 export default async function CommandeDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const session = await auth();
   if (!session) redirect("/admin/login");
 
   const order = await prisma.order.findUnique({
-    where: { id: params.id },
+    where: { id: (await params).id },
     include: {
       items: { include: { product: { select: { unit: true } } } },
       batch: true,

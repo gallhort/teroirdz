@@ -12,17 +12,18 @@ const VALID_TRANSITIONS: Record<string, string[]> = {
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
 
+  const { id } = await params;
   const body = await req.json();
   const { status: newStatus } = updateBatchStatusSchema.parse(body);
 
-  const batch = await prisma.batch.findUnique({ where: { id: params.id } });
+  const batch = await prisma.batch.findUnique({ where: { id } });
   if (!batch) {
     return NextResponse.json({ error: "Fournée introuvable" }, { status: 404 });
   }
@@ -38,7 +39,7 @@ export async function PATCH(
   }
 
   const updated = await prisma.batch.update({
-    where: { id: params.id },
+    where: { id },
     data: { status: newStatus },
   });
 

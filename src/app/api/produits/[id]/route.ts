@@ -5,9 +5,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const product = await prisma.product.findUnique({ where: { id: params.id } });
+  const { id } = await params;
+  const product = await prisma.product.findUnique({ where: { id } });
   if (!product) {
     return NextResponse.json({ error: "Produit introuvable" }, { status: 404 });
   }
@@ -16,18 +17,19 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
 
+  const { id } = await params;
   const body = await req.json();
   const data = updateProductSchema.parse(body);
 
   const product = await prisma.product.update({
-    where: { id: params.id },
+    where: { id },
     data,
   });
 
@@ -36,7 +38,7 @@ export async function PATCH(
 
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
   if (!session) {
@@ -45,7 +47,7 @@ export async function DELETE(
 
   // Soft delete: mark as unavailable
   const product = await prisma.product.update({
-    where: { id: params.id },
+    where: { id: (await params).id },
     data: { isAvailable: false },
   });
 

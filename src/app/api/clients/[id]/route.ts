@@ -5,14 +5,15 @@ import { NextRequest, NextResponse } from "next/server";
 // [id] is the customer email (URL-encoded)
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
 
-  const email = decodeURIComponent(params.id);
+  const { id } = await params;
+  const email = decodeURIComponent(id);
 
   const orders = await prisma.order.findMany({
     where: { customerEmail: { equals: email, mode: "insensitive" } },
