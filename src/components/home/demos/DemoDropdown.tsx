@@ -16,7 +16,7 @@ const demos = [
 export default function DemoDropdown() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const current = searchParams.get("demo") ?? "terroir";
+  const current = searchParams.get("demo") ?? "epicerie";
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -30,7 +30,7 @@ export default function DemoDropdown() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  const currentLabel = demos.find((d) => d.id === current)?.label ?? "Terroir traditionnel";
+  const currentLabel = demos.find((d) => d.id === current)?.label ?? "Epicerie fine premium";
 
   function select(id: string) {
     setOpen(false);

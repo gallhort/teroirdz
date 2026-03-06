@@ -18,13 +18,13 @@ export default async function HomePage({
     <>
       <Header />
       <main>
-        {demo === "epicerie" && <HomeEpicerie />}
+        {demo === "terroir" && <HomeTerroir />}
         {demo === "artisan" && <HomeArtisan />}
         {demo === "maison" && <HomeMaison />}
         {demo === "ducs" && <HomeDucsGascogne />}
         {demo === "verot" && <HomeMaisonVerot />}
         {demo === "tetedelard" && <HomeTeteLard />}
-        {(!demo || demo === "terroir") && <HomeTerroir />}
+        {(!demo || demo === "epicerie") && <HomeEpicerie />}
       </main>
     </>
   );
