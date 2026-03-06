@@ -1,6 +1,24 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
 
 export default function Footer() {
+  const router = useRouter();
+  const clickCount = useRef(0);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function handleSecretClick() {
+    clickCount.current += 1;
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => { clickCount.current = 0; }, 2000);
+    if (clickCount.current >= 5) {
+      clickCount.current = 0;
+      router.push("/admin/login");
+    }
+  }
+
   return (
     <footer className="bg-brown text-sand mt-auto">
       <div className="max-w-6xl mx-auto px-4 py-12">
@@ -29,7 +47,12 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-brown-light mt-8 pt-6 text-center text-xs text-sand">
-          <p>© {new Date().getFullYear()} Terodz. Tous droits réservés.</p>
+          <p
+            onClick={handleSecretClick}
+            className="cursor-default select-none"
+          >
+            © {new Date().getFullYear()} Terodz. Tous droits réservés.
+          </p>
         </div>
       </div>
     </footer>

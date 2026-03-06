@@ -31,7 +31,7 @@ const categories = [
     emoji: "🍱",
     desc: "Sushi, nems, yassa, tajine…",
     image:
-      "https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=400&q=80",
+      "https://images.unsplash.com/photo-1617196034838-16ce8f2faee2?w=400&q=80",
   },
 ];
 
