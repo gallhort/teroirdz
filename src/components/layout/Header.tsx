@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useCart } from "@/hooks/useCart";
+import DemoDropdown from "@/components/home/demos/DemoDropdown";
 
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const totalItems = useCart((s) => s.totalItems());
+  const isHome = pathname === "/";
 
   const nav = [
     { href: "/", label: "Accueil" },
@@ -39,6 +41,11 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
+          {isHome && (
+            <Suspense fallback={null}>
+              <DemoDropdown />
+            </Suspense>
+          )}
           <Link
             href="/commander"
             className="relative ml-2 bg-terracotta text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-terracotta-dark transition-colors"
@@ -85,6 +92,14 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
+          {isHome && (
+            <div className="px-6 py-3">
+              <p className="text-sand text-xs mb-2 uppercase tracking-wider">Style de demo</p>
+              <Suspense fallback={null}>
+                <DemoDropdown />
+              </Suspense>
+            </div>
+          )}
           <Link
             href="/commander"
             onClick={() => setOpen(false)}

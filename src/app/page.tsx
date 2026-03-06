@@ -1,23 +1,31 @@
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import Hero from "@/components/home/Hero";
-import BatchBanner from "@/components/home/BatchBanner";
-import HowItWorks from "@/components/home/HowItWorks";
-import CategoryGrid from "@/components/home/CategoryGrid";
-import Testimonials from "@/components/home/Testimonials";
+import HomeTerroir from "@/components/home/demos/HomeTerroir";
+import HomeEpicerie from "@/components/home/demos/HomeEpicerie";
+import HomeArtisan from "@/components/home/demos/HomeArtisan";
+import HomeMaison from "@/components/home/demos/HomeMaison";
+import HomeDucsGascogne from "@/components/home/demos/HomeDucsGascogne";
+import HomeMaisonVerot from "@/components/home/demos/HomeMaisonVerot";
+import HomeTeteLard from "@/components/home/demos/HomeTeteLard";
 
-export default function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ demo?: string }>;
+}) {
+  const { demo } = await searchParams;
+
   return (
     <>
       <Header />
       <main>
-        <Hero />
-        <BatchBanner />
-        <CategoryGrid />
-        <HowItWorks />
-        <Testimonials />
+        {demo === "epicerie" && <HomeEpicerie />}
+        {demo === "artisan" && <HomeArtisan />}
+        {demo === "maison" && <HomeMaison />}
+        {demo === "ducs" && <HomeDucsGascogne />}
+        {demo === "verot" && <HomeMaisonVerot />}
+        {demo === "tetedelard" && <HomeTeteLard />}
+        {(!demo || demo === "terroir") && <HomeTerroir />}
       </main>
-      <Footer />
     </>
   );
 }
